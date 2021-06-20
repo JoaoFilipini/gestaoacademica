@@ -138,30 +138,7 @@ public class DAO {
 		}
 	}
 	
-	
-	/*public void inserirDisciplina(JavaBeans curso) {
-		String create = "insert into disciplina (nomedisciplina, cargahoraria, ementa, ) values (?,?,?)";
-
-		try {
-			Connection con = conectar();
-
-			PreparedStatement pst = con.prepareStatement(create);
-
-			pst.setString(1, curso.getNomedisciplina());
-			pst.setString(2, curso.getCargahoraria());
-			pst.setString(3, curso.getEmenta());
-
-			pst.executeUpdate();
-
-			con.close();
-
-		} catch (Exception e) {
-			System.out.println(e);
-		}
-	}*/
-	
-	
-	public void selecionarDisciplina(JavaBeansDiscip disciplina) {
+	/*public void selecionarDisciplina(JavaBeansDiscip disciplina) {
 		String read2 = "select * from disciplina where idcurso = ?";
 		JavaBeans curso = new JavaBeans();
 		try {
@@ -179,10 +156,10 @@ public class DAO {
 		} catch (Exception e) {
 			System.out.println(e);
 		}
-	}
+	}*/
 	
 	
-	public ArrayList<JavaBeansDiscip> listarDisciplinas(){
+	public ArrayList<JavaBeansDiscip> listarDisciplinas(String idcurso){
 		
 		ArrayList<JavaBeansDiscip> disciplinas = new ArrayList<>();
 		String read = "select * from disciplina where idcurso = ?";
@@ -190,8 +167,7 @@ public class DAO {
 		try {
 			Connection con = conectar();
 			PreparedStatement pst = con.prepareStatement(read);
-			JavaBeans disciplina = new JavaBeans();
-			pst.setString(1, disciplina.getIdcurso());
+			pst.setString(1, idcurso);
 			ResultSet rs = pst.executeQuery();
 			
 			while(rs.next()) {
@@ -208,6 +184,32 @@ public class DAO {
 		} catch (Exception e) {
 			System.out.println(e);
 			return null;
+		}
+	}
+	
+	
+	public void inserirDisciplina(JavaBeansDiscip disciplina, String idcurso) {
+		String create = "insert into disciplina (nomedisciplina, cargahoraria, ementa, idcurso) values (?,?,?,?)";
+	
+		
+		try {
+			Connection con = conectar();
+
+			PreparedStatement pst = con.prepareStatement(create);			
+
+			pst.setString(1, disciplina.getNomedisciplina());
+			pst.setString(2, disciplina.getCargahoraria());
+			pst.setString(3, disciplina.getEmenta());
+			
+			pst.setString(4, idcurso);
+			
+
+			pst.executeUpdate();
+
+			con.close();
+
+		} catch (Exception e) {
+			System.out.println(e);
 		}
 	}
 

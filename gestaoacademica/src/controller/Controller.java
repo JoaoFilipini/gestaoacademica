@@ -14,12 +14,13 @@ import model.DAO;
 import model.JavaBeans;
 import model.JavaBeansDiscip;
 
-@WebServlet(urlPatterns = { "/Controller", "/main", "/insertCurso", "/selectCurso", "/updateCurso", "/deleteCurso", "/disciplinas" })
+@WebServlet(urlPatterns = { "/Controller", "/main", "/insertCurso", "/selectCurso", "/updateCurso", "/deleteCurso", "/disciplina", "/insertDiscip" })
 public class Controller extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	DAO dao = new DAO();
 	JavaBeans curso = new JavaBeans();
+	JavaBeansDiscip discip = new JavaBeansDiscip();
 
 	public Controller() {
 		super();
@@ -38,8 +39,10 @@ public class Controller extends HttpServlet {
 			editarCurso(request, response);
 		} else if (action.equals("/deleteCurso")) {
 			removerCurso(request, response);
-		}else if (action.equals("/disciplinas")) {
+		}else if (action.equals("/disciplina")) {
 			disciplinas(request, response);
+		}else if (action.equals("/insertDiscip")) {
+			adicionarDisciplina(request, response);
 		}
 		else {
 			response.sendRedirect("index.html");
@@ -57,8 +60,8 @@ public class Controller extends HttpServlet {
 
 	protected void adicionarCurso(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
-		curso.setNomecurso(request.getParameter("nome"));
+		
+		curso.setNomecurso(request.getParameter("nomecurso"));
 		curso.setPeriodicidade(request.getParameter("periodicidade"));
 		curso.setDescricao(request.getParameter("descricao"));
 
@@ -100,28 +103,30 @@ public class Controller extends HttpServlet {
 		response.sendRedirect("main");
 	}
 	
-		
-	/*protected void disciplina(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		
-		curso.setIddisciplina(request.getParameter("idcurso"));
-		dao.selecionarDisciplina(curso);
-		request.setAttribute("iddisciplina", curso.getIddisciplina());
-		request.setAttribute("nomedisciplina", curso.getNomedisciplina());
-		request.setAttribute("cargahoraria", curso.getCargahoraria());
-		request.setAttribute("ementa", curso.getEmenta());
-		RequestDispatcher rd = request.getRequestDispatcher("disciplina.jsp");
-		rd.forward(request, response);
-	}*/
-	
-	
+			
 	
 	protected void disciplinas(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		ArrayList<JavaBeansDiscip> lista = dao.listarDisciplinas();
+		ArrayList<JavaBeansDiscip> lista = dao.listarDisciplinas(request.getParameter("idcurso"));
 
 		request.setAttribute("disciplinas", lista);
 		RequestDispatcher rd = request.getRequestDispatcher("disciplina.jsp");
 		rd.forward(request, response);
 	}
+	
+	protected void adicionarDisciplina(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		
+		discip.setNomedisciplina("nomedisciplina");
+		discip.setCargahoraria("cargahoraria");
+		discip.setEmenta("ementa");
+		String idcurso = request.getParameter("idcurso");		
+
+		dao.inserirDisciplina(discip, idcurso);
+
+		response.sendRedirect("main");
+	}
+	
+	
+	
 }

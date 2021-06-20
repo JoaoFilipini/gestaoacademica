@@ -6,8 +6,10 @@ public class JavaBeansDiscip {
 	private String nomedisciplina;
 	private String cargahoraria;
 	private String ementa;
-	
-	
+	private String idcurso;
+
+
+
 	public JavaBeansDiscip() {
 		super();
 	}
@@ -24,6 +26,16 @@ public class JavaBeansDiscip {
 	
 	public String getIddisciplina() {
 		return iddisciplina;
+	}
+
+
+	public String getIdcurso() {
+		return idcurso;
+	}
+
+
+	public void setIdcurso(String idcurso) {
+		this.idcurso = idcurso;
 	}
 
 

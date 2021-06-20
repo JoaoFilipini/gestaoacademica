@@ -14,7 +14,7 @@
 </head>
 <body>
 	<h1>Disciplinas</h1>
-	<a href="novo.html" class="Botao1">Nova Disciplina</a>
+	<a href="novoDiscip.html" class="Botao1">Nova Disciplina</a>
 	<table id="tabela">
 		<thead>
 			<tr>

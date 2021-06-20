@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="utf-8">
+<title>Serviço de Gestão Acadêmica</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+</body>
+	<h1>Criar nova Disciplina</h1>
+	<form name = "frmDiscip" action="insertDiscip">
+		<table>
+			<tr>
+				<td><input type="text" name="nomediscplina" placeholder="Nome Disciplina" class=Caixa1></td>
+			</tr>
+			<tr>
+				<td><input type="text" name="cargahoraria" placeholder="Carga Horária" class=Caixa1></td>
+			</tr>
+			<tr>
+				<td><input type="text" name="ementa" placeholder="Ementa" class=Caixa1></td>
+			</tr>
+		</table>
+		<input type="button" value="Adicionar Disciplina" class=Botao1 onclick="validar()">
+	</form>
+	<script src="scripts/validadord.js"></script>
+</html>
