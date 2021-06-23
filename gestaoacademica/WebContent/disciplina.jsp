@@ -33,14 +33,15 @@
 					<td><%=lista.get(i).getCargahoraria()%></td>
 					<td><%=lista.get(i).getEmenta()%></td>
 					<td>
-					<a
+					<a href="selectDiscip?iddisciplina=<%=lista.get(i).getIddisciplina()%>"
 					class="Botao1">Editar</a>
-					<a
+					<a href="javascript: confirmarDiscip(<%=lista.get(i).getIddisciplina()%>)"
 					class="Botao2">Excluir</a>
 					</td>
 				</tr>
 			<%} %>
 		</tbody>
 	</table>
+	<script src="scripts/confirmador.js"></script>
 </body>
 </html>

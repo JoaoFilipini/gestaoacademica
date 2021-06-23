@@ -138,26 +138,6 @@ public class DAO {
 		}
 	}
 	
-	/*public void selecionarDisciplina(JavaBeansDiscip disciplina) {
-		String read2 = "select * from disciplina where idcurso = ?";
-		JavaBeans curso = new JavaBeans();
-		try {
-			Connection con = conectar();
-			PreparedStatement pst = con.prepareStatement(read2);
-			pst.setString(1, curso.getIdcurso());
-			ResultSet rs = pst.executeQuery();
-			while (rs.next()) {
-				disciplina.setIddisciplina(rs.getString(1));
-				disciplina.setNomedisciplina(rs.getString(2));
-				disciplina.setCargahoraria(rs.getString(3));
-				disciplina.setEmenta(rs.getString(4));
-			}
-			con.close();
-		} catch (Exception e) {
-			System.out.println(e);
-		}
-	}*/
-	
 	
 	public ArrayList<JavaBeansDiscip> listarDisciplinas(String idcurso){
 		
@@ -201,8 +181,8 @@ public class DAO {
 			pst.setString(2, disciplina.getCargahoraria());
 			pst.setString(3, disciplina.getEmenta());
 			
-			pst.setString(4, idcurso);
 			
+			pst.setString(4, idcurso);			
 
 			pst.executeUpdate();
 
@@ -212,5 +192,57 @@ public class DAO {
 			System.out.println(e);
 		}
 	}
+	
+	public void selecionarDisciplina(JavaBeansDiscip discip) {
+		String read2 = "select * from disciplina where iddisciplina = ?";
+		try {
+			Connection con = conectar();
+			PreparedStatement pst = con.prepareStatement(read2);
+			pst.setString(1, discip.getIddisciplina());
+			ResultSet rs = pst.executeQuery();
+			while (rs.next()) {
+				discip.setIddisciplina(rs.getString(1));
+				discip.setNomedisciplina(rs.getString(2));
+				discip.setCargahoraria(rs.getString(3));
+				discip.setEmenta(rs.getString(4));
+			}
+			con.close();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+	}
+	
+	
+	public void alterarDisciplina(JavaBeansDiscip discip) {
+		String update = "update disciplina set nomedisciplina=?,cargahoraria=?,ementa=? where iddisciplina=?";
+		try {
+			Connection con = conectar();
+			PreparedStatement pst = con.prepareStatement(update);
+			pst.setString(1, discip.getNomedisciplina());
+			pst.setString(2, discip.getCargahoraria());
+			pst.setString(3, discip.getEmenta());
+			pst.setString(4, discip.getIddisciplina());
+			pst.executeUpdate();
+			con.close();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+	}
+	
+	
+	public void deletarDisciplina(JavaBeansDiscip discip) {
+		String delete = "delete from disciplina where iddisciplina=?";
+		try {
+			Connection con = conectar();
+			PreparedStatement pst = con.prepareStatement(delete);
+			pst.setString(1, discip.getIddisciplina());
+			pst.executeUpdate();
+			con.close();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+	}
+	
+
 
 }
